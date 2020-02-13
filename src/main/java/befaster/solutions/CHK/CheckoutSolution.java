@@ -27,8 +27,10 @@ public class CheckoutSolution {
         	int rate = rates[entry.getKey()];
         	if(entry.getKey() == 'A') {
         		total += (entry.getValue()/5)*200+ ((entry.getValue()%5)/3)*130 + ((entry.getValue()%5)%3)*rate;
-        	}else if(entry.getKey() == 'B') {
-        		int noOfBs = entry.getValue() - skuCount.get('E')/2;
+        	}else if(entry.getKey() == 'B') {        		
+        		int noOfBs = entry.getValue();
+        		if(skuCount.containsKey('E'))
+        			noOfBs -= skuCount.get('E')/2;        		
         		noOfBs = noOfBs>0? noOfBs : 0;
         		total += (noOfBs/2)*45 + (noOfBs%2)*rate;
         	}
@@ -39,7 +41,3 @@ public class CheckoutSolution {
         return total;
     }
 }
-
-
-
-
