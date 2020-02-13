@@ -35,7 +35,7 @@ public class CheckoutSolution {
         		noOfBs = noOfBs>0? noOfBs : 0;
         		total += (noOfBs/2)*45 + (noOfBs%2)*rate;
         	}else if(entry.getKey() == 'F') {
-        		total += (entry.getValue()/3)*2 + (entry.getValue()%3);
+        		total += ((entry.getValue()/3)*2 + (entry.getValue()%3))*rate;
         	}
         	else {
         		total += entry.getValue() * rate;
@@ -44,5 +44,6 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
 
