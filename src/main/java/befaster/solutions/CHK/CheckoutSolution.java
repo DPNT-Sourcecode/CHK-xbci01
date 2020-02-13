@@ -28,14 +28,18 @@ public class CheckoutSolution {
         	if(entry.getKey() == 'A') {
         		total += (entry.getValue()/5)*200+ ((entry.getValue()%5)/3)*130 + ((entry.getValue()%5)%3)*rate;
         	}else if(entry.getKey() == 'B') {
-        		total += (entry.getValue()/2)*45 + (entry.getValue()%2)*rate;
-        	}else {
+        		int noOfBs = entry.getValue() - skuCount.get('E')/2;
+        		noOfBs = noOfBs>0? noOfBs : 0;
+        		total += (noOfBs/2)*45 + (noOfBs%2)*rate;
+        	}
+        	else {
         		total += entry.getValue() * rate;
         	}
         }
         return total;
     }
 }
+
 
 
 
