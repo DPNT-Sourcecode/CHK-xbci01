@@ -14,7 +14,7 @@ public class CheckoutSolution {
         int total = 0;
         char[] input = skus.toCharArray();
         for(char item : input) {
-        	if(item < 97 || item > 100)
+        	if(item < 65 || item > 68)
         		return -1;
         	if(skuCount.containsKey(item)) {
         		int val = skuCount.get(item) + 1;
@@ -35,4 +35,5 @@ public class CheckoutSolution {
         return total;
     }
 }
+
 
