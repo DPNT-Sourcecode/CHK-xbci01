@@ -43,4 +43,62 @@ public class CheckoutSolution {
         }
         return total;
     }
+    interface Offer{
+    	
+    }
+    class CountOffer implements Offer{
+    	private int count;
+    	private int rate;
+    	public CountOffer() {
+    		
+    	}
+    	public CountOffer(int count, int rate) {
+    		this.count = count;
+    		this.rate = rate;
+    	}
+		public int getCount() {
+			return count;
+		}
+		public void setCount(int count) {
+			this.count = count;
+		}
+		public int getRate() {
+			return rate;
+		}
+		public void setRate(int rate) {
+			this.rate = rate;
+		}
+    }
+    class FreeOffer implements Offer{
+    	private int count;
+    	private char mainProduct;
+    	private char offerProduct;
+    	
+    	public FreeOffer() {}
+    	public FreeOffer(int count, char mainProduct, char offerProduct) {
+    		this.count = count;
+    		this.mainProduct = mainProduct;
+    		this.offerProduct = offerProduct;
+    	}
+    	
+		public int getCount() {
+			return count;
+		}
+		public void setCount(int count) {
+			this.count = count;
+		}
+		public char getMainProduct() {
+			return mainProduct;
+		}
+		public void setMainProduct(char mainProduct) {
+			this.mainProduct = mainProduct;
+		}
+		public char getOfferProduct() {
+			return offerProduct;
+		}
+		public void setOfferProduct(char offerProduct) {
+			this.offerProduct = offerProduct;
+		}
+    }
 }
+
