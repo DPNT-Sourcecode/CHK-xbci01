@@ -12,10 +12,11 @@ public class CheckoutSolution {
         rates['C'] = 20;
         rates['D'] = 15;
         rates['E'] = 40;
+        rates['F'] = 10;
         int total = 0;
         char[] input = skus.toCharArray();
         for(char item : input) {
-        	if(item < 65 || item > 69)
+        	if(item < 65 || item > 70)
         		return -1;
         	if(skuCount.containsKey(item)) {
         		int val = skuCount.get(item) + 1;
@@ -33,6 +34,8 @@ public class CheckoutSolution {
         			noOfBs -= skuCount.get('E')/2;        		
         		noOfBs = noOfBs>0? noOfBs : 0;
         		total += (noOfBs/2)*45 + (noOfBs%2)*rate;
+        	}else if(entry.getKey() == 'F') {
+        		total += (entry.getValue()/2)*rate +(entry.getValue()%2)*rate;
         	}
         	else {
         		total += entry.getValue() * rate;
@@ -41,3 +44,4 @@ public class CheckoutSolution {
         return total;
     }
 }
+
