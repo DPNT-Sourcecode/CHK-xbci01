@@ -45,26 +45,56 @@ public class CheckoutSolution {
 		return total;
 	}
 
+	private int[] getRates() {
+		int[] rates = new int[128];
+		rates['B'] = 30;
+		rates['C'] = 20;
+		rates['D'] = 15;
+		rates['E'] = 40;
+		rates['F'] = 10;
+		rates['G'] = 20;
+		      rates['H'] =  10;
+		            rates['I'] = 35;
+		                  rates['J'] = 60;
+		                        rates['K'] = 80;
+		                              rates['L'] = 90;
+		                                    rates['M'] = 15;
+		                                          rates['N'] = 40;
+		                                                rates['O'] = 10;
+		                                                      rates['P'] =  50    | 5P for 200             |
+		                                                            rates['Q    | 30    | 3Q for 80              |
+		                                                                  rates['R    | 50    | 3R get one Q free      |
+		                                                                        rates['S    | 30    |                        |
+		                                                                              rates['T    | 20    |                        |
+		                                                                                    rates['U    | 40    | 3U get one U free      |
+		                                                                                          rates['V    | 50    | 2V for 90, 3V for 130  |
+		                                                                                                rates[' W    | 20    |                        |
+		                                                                                                      rates['X    | 90    |                        |
+		                                                                                                            rates['Y    | 10    |                        |
+		                                                                                                                  rates['Z    | 50
+	}
+
 	private int applyCountOffers(List<CountOffer> offers, int noOfItems, int rate) {
 		int total = 0;
 		for (CountOffer countOffer : offers) {
 			total += (noOfItems / countOffer.getCount()) * countOffer.getRate();
 			noOfItems = noOfItems % countOffer.getCount();
 		}
-		total += noOfItems*rate;
+		total += noOfItems * rate;
 		return total;
 	}
 
-	private int applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, Map<Character, Integer> skuCount, int[] rates) {
+	private int applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, Map<Character, Integer> skuCount,
+			int[] rates) {
 		int total = 0;
 		if (freeOffer.getMainProduct() == freeOffer.getOfferProduct()) {
 			total += ((noOfItems / (freeOffer.getCount() + 1)) * freeOffer.getCount()
 					+ (noOfItems % (freeOffer.getCount() + 1))) * rate;
 		} else {
 			int OfferProductCount = skuCount.get(freeOffer.getOfferProduct());
-			int count = noOfItems/freeOffer.getCount();
-			count = count > OfferProductCount? OfferProductCount: count;
-			total += noOfItems * rate - count* rates[freeOffer.getOfferProduct()];
+			int count = noOfItems / freeOffer.getCount();
+			count = count > OfferProductCount ? OfferProductCount : count;
+			total += noOfItems * rate - count * rates[freeOffer.getOfferProduct()];
 		}
 		return total;
 	}
@@ -142,4 +172,5 @@ public class CheckoutSolution {
 		}
 	}
 }
+
 
