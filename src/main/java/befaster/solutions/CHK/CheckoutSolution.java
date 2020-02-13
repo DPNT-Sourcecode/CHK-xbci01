@@ -1,5 +1,6 @@
 package befaster.solutions.CHK;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.Map;
 public class CheckoutSolution {
 	int[] rates = new int[128];
 	int total = 0;
-
+	Map<Character, List<Offer>> offerMap = new HashMap<>();
 	public Integer checkout(String skus) {
 		Map<Character, Integer> skuCount = new HashMap<>();
 		int[] rates = new int[128];
@@ -48,6 +49,24 @@ public class CheckoutSolution {
 		return total;
 	}
 
+	private void generateOfferMap() {
+		offerMap.put('A', Arrays.asList(new Offer[] {new CountOffer(5,200), new CountOffer(3,130)}));
+		offerMap.put('B', Arrays.asList(new Offer[] {new CountOffer(2,45)}));
+		
+		offerMap.put('E', Arrays.asList(new Offer[] {new FreeOffer(2, 'E', 'B')}));
+		offerMap.put('F', Arrays.asList(new Offer[] {new FreeOffer(2, 'F', 'F')}));
+		
+		offerMap.put('H', Arrays.asList(new Offer[] {new CountOffer(10, 80),new CountOffer(5, 45)}));
+		offerMap.put('K', Arrays.asList(new Offer[] {new CountOffer(2, 150)}));
+		
+		offerMap.put('N', Arrays.asList(new Offer[] {new FreeOffer(3, 'N', 'M')}));
+		offerMap.put('P', Arrays.asList(new Offer[] {new CountOffer(5, 200)}));
+		
+		offerMap.put('Q', Arrays.asList(new Offer[] {new CountOffer(3, 80)}));
+		offerMap.put('R', Arrays.asList(new Offer[] {new FreeOffer(3, 'R', 'Q')}));
+		offerMap.put('U', Arrays.asList(new Offer[] {new FreeOffer(3, 'U','U')}));
+		offerMap.put('V', Arrays.asList(new Offer[] {new CountOffer(3, 130), new CountOffer(2, 90)}));
+	}	
 	private void generateRates() {
 		rates['B'] = 30;
 		rates['C'] = 20;
@@ -76,14 +95,14 @@ public class CheckoutSolution {
 		rates['Z'] = 50;
 	}
 
-	private int applyCountOffers(CountOffer offers, int noOfItems, int rate) {
+	private int applyCountOffers(CountOffer countOffer, int noOfItems, int rate) {
 		total += (noOfItems / countOffer.getCount()) * countOffer.getRate();
 		noOfItems = noOfItems % countOffer.getCount();
+		return noOfItems;
 	}
 
-	private int applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, Map<Character, Integer> skuCount,
+	private void applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, Map<Character, Integer> skuCount,
 			int[] rates) {
-		int total = 0;
 		if (freeOffer.getMainProduct() == freeOffer.getOfferProduct()) {
 			total += ((noOfItems / (freeOffer.getCount() + 1)) * freeOffer.getCount()
 					+ (noOfItems % (freeOffer.getCount() + 1))) * rate;
@@ -93,7 +112,6 @@ public class CheckoutSolution {
 			count = count > OfferProductCount ? OfferProductCount : count;
 			total += noOfItems * rate - count * rates[freeOffer.getOfferProduct()];
 		}
-		return total;
 	}
 
 	interface Offer {
@@ -169,3 +187,4 @@ public class CheckoutSolution {
 		}
 	}
 }
+
