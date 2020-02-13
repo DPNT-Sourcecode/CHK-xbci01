@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class CheckoutSolution {
 	int[] rates = new int[128];
+	int total = 0;
+
 	public Integer checkout(String skus) {
 		Map<Character, Integer> skuCount = new HashMap<>();
 		int[] rates = new int[128];
@@ -74,14 +76,9 @@ public class CheckoutSolution {
 		rates['Z'] = 50;
 	}
 
-	private int applyCountOffers(List<CountOffer> offers, int noOfItems, int rate) {
-		int total = 0;
-		for (CountOffer countOffer : offers) {
-			total += (noOfItems / countOffer.getCount()) * countOffer.getRate();
-			noOfItems = noOfItems % countOffer.getCount();
-		}
-		total += noOfItems * rate;
-		return total;
+	private int applyCountOffers(CountOffer offers, int noOfItems, int rate) {
+		total += (noOfItems / countOffer.getCount()) * countOffer.getRate();
+		noOfItems = noOfItems % countOffer.getCount();
 	}
 
 	private int applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, Map<Character, Integer> skuCount,
@@ -172,6 +169,3 @@ public class CheckoutSolution {
 		}
 	}
 }
-
-
-
