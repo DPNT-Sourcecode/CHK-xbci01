@@ -201,9 +201,27 @@ public class CheckoutSolution {
 		}
 	}
 	
+	class MetaData{
+		private int count;
+		private int value;
+		public int getCount() {
+			return count;
+		}
+		public void setCount(int count) {
+			this.count = count;
+		}
+		public int getValue() {
+			return value;
+		}
+		public void setValue(int value) {
+			this.value = value;
+		}
+	}
+	
 	public static void main(String args[]) {
 		CheckoutSolution sol = new CheckoutSolution();
 		System.out.println(sol.checkout("AABBAEEAAAAQQQ"));
 	}
 }
+
 
