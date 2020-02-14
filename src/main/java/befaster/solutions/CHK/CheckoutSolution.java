@@ -250,10 +250,6 @@ public class CheckoutSolution {
 	
 	public static void main(String[] args) {
 		CheckoutSolution sol = new CheckoutSolution();
-		System.out.println(sol.checkout("HHHHHHH"));
+		System.out.println(sol.checkout("PPPPPPPPPP"));
 	}
 }
-
-
-
-
