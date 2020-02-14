@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 public class CheckoutSolution {
-	int[] rates = new int[128];
-	int total = 0;
-	Map<Character, List<Offer>> offerMap = new HashMap<>();	
-	Map<Character, MetaData> skuCount = new HashMap<>();
+	public int[] rates = new int[128];
+	public int total = 0;
+	public Map<Character, List<Offer>> offerMap = new HashMap<>();	
+	public Map<Character, MetaData> skuCount = new HashMap<>();
 	public Integer checkout(String skus) {		
 		generateRates();
 		generateOfferMap();
@@ -65,7 +65,7 @@ public class CheckoutSolution {
 		return total;
 	}
 
-	private void generateOfferMap() {
+	public void generateOfferMap() {
 		offerMap.put('A', Arrays.asList(new Offer[] {new CountOffer(5,200), new CountOffer(3,130)}));
 		offerMap.put('B', Arrays.asList(new Offer[] {new CountOffer(2,45)}));
 		
@@ -83,7 +83,7 @@ public class CheckoutSolution {
 		offerMap.put('U', Arrays.asList(new Offer[] {new FreeOffer(3, 'U','U')}));
 		offerMap.put('V', Arrays.asList(new Offer[] {new CountOffer(3, 130), new CountOffer(2, 90)}));
 	}	
-	private void generateRates() {
+	public void generateRates() {
 		rates['A'] = 50;
 		rates['B'] = 30;
 		rates['C'] = 20;
@@ -112,14 +112,14 @@ public class CheckoutSolution {
 		rates['Z'] = 50;
 	}
 
-	private int applyCountOffers(CountOffer countOffer, int noOfItems, MetaData data) {
+	public int applyCountOffers(CountOffer countOffer, int noOfItems, MetaData data) {
 		data.setValue(data.getValue() + (noOfItems / countOffer.getCount()) * countOffer.getRate());
 		total += (noOfItems / countOffer.getCount()) * countOffer.getRate();
 		noOfItems = noOfItems % countOffer.getCount();
 		return noOfItems;
 	}
 
-	private int applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, MetaData data) {
+	public int applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, MetaData data) {
 		if (freeOffer.getMainProduct() == freeOffer.getOfferProduct()) {
 			data.setValue(data.getValue() + ((noOfItems / (freeOffer.getCount() + 1)) * freeOffer.getCount()
 					+ (noOfItems % (freeOffer.getCount() + 1))) * rate);
@@ -248,5 +248,6 @@ public class CheckoutSolution {
 		}
 	}
 }
+
 
 
