@@ -11,17 +11,11 @@ public class CheckoutSolution {
 	Map<Character, List<Offer>> offerMap = new HashMap<>();
 	public Integer checkout(String skus) {
 		Map<Character, Integer> skuCount = new HashMap<>();
-		int[] rates = new int[128];
-		rates['A'] = 50;
-		rates['B'] = 30;
-		rates['C'] = 20;
-		rates['D'] = 15;
-		rates['E'] = 40;
-		rates['F'] = 10;
-		int total = 0;
+		generateRates();
+		generateOfferMap();
 		char[] input = skus.toCharArray();
 		for (char item : input) {
-			if (item < 65 || item > 70)
+			if (item < 65 || item > 90)
 				return -1;
 			if (skuCount.containsKey(item)) {
 				int val = skuCount.get(item) + 1;
@@ -29,7 +23,26 @@ public class CheckoutSolution {
 			} else
 				skuCount.put(item, 1);
 		}
+		
 		for (Map.Entry<Character, Integer> entry : skuCount.entrySet()) {
+			int rate = rates[entry.getKey()];
+			int noOfItems = entry.getValue();
+			if(offerMap.containsKey(entry.getKey())) {
+				List<Offer> offers = offerMap.get(entry.getKey());
+				for(Offer offer : offers) {
+					if(offer instanceof CountOffer) {
+						CountOffer countOffer = (CountOffer)offer;
+						noOfItems = this.applyCountOffers(countOffer, noOfItems);
+					}else if(offer instanceof FreeOffer) {
+						FreeOffer freeOffer = (FreeOffer)offer;
+						noOfItems = this.applyFreeOffer(freeOffer, noOfItems, rate, skuCount);
+					}					
+				}				
+			}
+			total += noOfItems * rate;
+		}
+		
+		/*for (Map.Entry<Character, Integer> entry : skuCount.entrySet()) {
 			int rate = rates[entry.getKey()];
 			if (entry.getKey() == 'A') {
 				total += (entry.getValue() / 5) * 200 + ((entry.getValue() % 5) / 3) * 130
@@ -45,7 +58,7 @@ public class CheckoutSolution {
 			} else {
 				total += entry.getValue() * rate;
 			}
-		}
+		}*/
 		return total;
 	}
 
@@ -95,14 +108,13 @@ public class CheckoutSolution {
 		rates['Z'] = 50;
 	}
 
-	private int applyCountOffers(CountOffer countOffer, int noOfItems, int rate) {
+	private int applyCountOffers(CountOffer countOffer, int noOfItems) {
 		total += (noOfItems / countOffer.getCount()) * countOffer.getRate();
 		noOfItems = noOfItems % countOffer.getCount();
 		return noOfItems;
 	}
 
-	private void applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, Map<Character, Integer> skuCount,
-			int[] rates) {
+	private int applyFreeOffer(FreeOffer freeOffer, int noOfItems, int rate, Map<Character, Integer> skuCount) {
 		if (freeOffer.getMainProduct() == freeOffer.getOfferProduct()) {
 			total += ((noOfItems / (freeOffer.getCount() + 1)) * freeOffer.getCount()
 					+ (noOfItems % (freeOffer.getCount() + 1))) * rate;
@@ -112,6 +124,7 @@ public class CheckoutSolution {
 			count = count > OfferProductCount ? OfferProductCount : count;
 			total += noOfItems * rate - count * rates[freeOffer.getOfferProduct()];
 		}
+		return 0;
 	}
 
 	interface Offer {
@@ -187,4 +200,5 @@ public class CheckoutSolution {
 		}
 	}
 }
+
 
