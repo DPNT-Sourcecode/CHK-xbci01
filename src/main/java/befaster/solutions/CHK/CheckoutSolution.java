@@ -133,7 +133,20 @@ public class CheckoutSolution {
 			if(offerProductCount>0) {
 				total -= computedValue.getValue();
 				total += noOfItems * rate;
-				skuCount.put(freeOffer.getOfferProduct(), new MetaData(offerProductCount>count?offerProductCount-count:0, 0));				
+				offerProductCount = offerProductCount>count?offerProductCount-count:0;
+				if(offerMap.containsKey(freeOffer.getOfferProduct())) {
+					List<Offer> offers = offerMap.get(freeOffer.getOfferProduct());
+					for(Offer offer : offers) {
+						if(offer instanceof CountOffer) {
+							CountOffer countOffer = (CountOffer)offer;
+							noOfItems = this.applyCountOffers(countOffer, offerProductCount, data);
+						}else if(offer instanceof FreeOffer) {
+							FreeOffer freeOfferNew = (FreeOffer)offer;
+							noOfItems = this.applyFreeOffer(freeOfferNew, offerProductCount, rates[freeOffer.getOfferProduct()], data);
+						}					
+					}				
+				} 
+				skuCount.put(freeOffer.getOfferProduct(), new MetaData(offerProductCount, 0));				
 			}
 		}
 		return 0;
@@ -239,3 +252,4 @@ public class CheckoutSolution {
 		System.out.println(sol.checkout("AABBAEEAAAAQQQ"));
 	}
 }
+
