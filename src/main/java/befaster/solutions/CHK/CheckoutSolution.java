@@ -81,6 +81,7 @@ public class CheckoutSolution {
 		offerMap.put('V', Arrays.asList(new Offer[] {new CountOffer(3, 130), new CountOffer(2, 90)}));
 	}	
 	private void generateRates() {
+		rates['A'] = 50;
 		rates['B'] = 30;
 		rates['C'] = 20;
 		rates['D'] = 15;
@@ -205,3 +206,4 @@ public class CheckoutSolution {
 		System.out.println(sol.checkout("AABBAEEAAAAQQQ"));
 	}
 }
+
