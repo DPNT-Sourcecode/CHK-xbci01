@@ -201,7 +201,7 @@ public class CheckoutSolution {
 		int rate;
 		
 		public AnyThree() {
-			offerProducts = new char[]{'S','T','X','Y','Z'};
+			offerProducts = new char[]{'Z','S','T','Y','X'};
 			rate = 45; 
 		}
 		
@@ -310,16 +310,7 @@ public class CheckoutSolution {
 			this.value = value;
 		}
 	}
-	
-	public static void main(String args[]) {
-		CheckoutSolution sol = new CheckoutSolution();
-		System.out.println(sol.checkout("AESBETABXAVYVZSTSS"));
-		System.out.println(sol.checkout("A"));
-		System.out.println(sol.checkout("E"));
-		System.out.println(sol.checkout("X"));
-		System.out.println(sol.checkout("XX"));
-		System.out.println(sol.checkout("YXS"));
-	}
 }
+
 
 
