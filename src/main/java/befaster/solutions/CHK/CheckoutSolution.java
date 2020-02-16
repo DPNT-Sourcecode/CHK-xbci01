@@ -116,6 +116,42 @@ public class CheckoutSolution {
 		rates['Y'] = 10;
 		rates['Z'] = 50;
 	}
+	
+	public void applyAnyThreeOffer() {
+		AnyThree offer = new AnyThree();
+		char[] products = offer.getAnyThreeOfferProducts();
+		int count = 0;
+		for(char prod : products) {
+			if(skuCount.containsKey(prod)) {
+				if(skuCount.get(prod) != null) {
+					MetaData data = skuCount.get(prod);
+					count += data.getCount();
+				}
+			}
+		}
+		total += (count/3)*offer.getRate();
+		count = count - count%3;
+		if(count == 0)
+			return;
+		for(char prod: products) {
+			if(skuCount.containsKey(prod)) {
+				if(skuCount.get(prod) != null) {
+					MetaData data = skuCount.get(prod);					
+					if(count==0)
+						break;
+					else if(data.getCount() >= count) {
+						data.setCount((data.getCount()-count));
+						skuCount.put(prod, data);
+						break;
+					}else {
+						count -= data.getCount();
+						data.setCount(0);
+						skuCount.put(prod, data);
+					}
+				}
+			}
+		}
+	}
 
 	public int applyCountOffers(CountOffer countOffer, int noOfItems, MetaData data) {
 		data.setValue(data.getValue() + (noOfItems / countOffer.getCount()) * countOffer.getRate());
@@ -280,3 +316,4 @@ public class CheckoutSolution {
 		}
 	}
 }
+
