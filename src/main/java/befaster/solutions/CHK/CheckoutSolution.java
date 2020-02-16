@@ -78,8 +78,14 @@ public class CheckoutSolution {
 
 		offerMap.put('Q', Arrays.asList(new Offer[] { new CountOffer(3, 80) }));
 		offerMap.put('R', Arrays.asList(new Offer[] { new FreeOffer(3, 'R', 'Q') }));
+		offerMap.put('S', Arrays.asList(new AnyThree()));
+		offerMap.put('T', Arrays.asList(new AnyThree()));
+		
 		offerMap.put('U', Arrays.asList(new Offer[] { new FreeOffer(3, 'U', 'U') }));
 		offerMap.put('V', Arrays.asList(new Offer[] { new CountOffer(3, 130), new CountOffer(2, 90) }));
+		offerMap.put('X', Arrays.asList(new AnyThree()));
+		offerMap.put('Y', Arrays.asList(new AnyThree()));
+		offerMap.put('Z', Arrays.asList(new AnyThree()));
 	}
 
 	public void generateRates() {
@@ -158,6 +164,17 @@ public class CheckoutSolution {
 
 	interface Offer {
 
+	}
+	class AnyThree implements Offer{
+		final char[] offerProducts;
+		
+		public AnyThree() {
+			offerProducts = new char[]{'S','T','X','Y','Z'};
+		}
+		
+		public char[] getAnyThreeOfferProducts() {
+			return offerProducts;
+		}
 	}
 
 	class CountOffer implements Offer {
@@ -258,6 +275,7 @@ public class CheckoutSolution {
 		}
 	}
 }
+
 
 
 
