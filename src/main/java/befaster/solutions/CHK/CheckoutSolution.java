@@ -48,18 +48,6 @@ public class CheckoutSolution {
 			data.setValue(data.getValue() + noOfItems * rate);
 			total += noOfItems * rate;
 		}
-
-		/*
-		 * for (Map.Entry<Character, Integer> entry : skuCount.entrySet()) { int rate =
-		 * rates[entry.getKey()]; if (entry.getKey() == 'A') { total +=
-		 * (entry.getValue() / 5) * 200 + ((entry.getValue() % 5) / 3) * 130 +
-		 * ((entry.getValue() % 5) % 3) * rate; } else if (entry.getKey() == 'B') { int
-		 * noOfBs = entry.getValue(); if (skuCount.containsKey('E')) noOfBs -=
-		 * skuCount.get('E') / 2; noOfBs = noOfBs > 0 ? noOfBs : 0; total += (noOfBs /
-		 * 2) * 45 + (noOfBs % 2) * rate; } else if (entry.getKey() == 'F') { total +=
-		 * ((entry.getValue() / 3) * 2 + (entry.getValue() % 3)) * rate; } else { total
-		 * += entry.getValue() * rate; } }
-		 */
 		return total;
 	}
 
@@ -71,7 +59,7 @@ public class CheckoutSolution {
 		offerMap.put('F', Arrays.asList(new Offer[] { new FreeOffer(2, 'F', 'F') }));
 
 		offerMap.put('H', Arrays.asList(new Offer[] { new CountOffer(10, 80), new CountOffer(5, 45) }));
-		offerMap.put('K', Arrays.asList(new Offer[] { new CountOffer(2, 150) }));
+		offerMap.put('K', Arrays.asList(new Offer[] { new CountOffer(2, 120) }));
 
 		offerMap.put('N', Arrays.asList(new Offer[] { new FreeOffer(3, 'N', 'M') }));
 		offerMap.put('P', Arrays.asList(new Offer[] { new CountOffer(5, 200) }));
@@ -94,7 +82,7 @@ public class CheckoutSolution {
 		rates['H'] = 10;
 		rates['I'] = 35;
 		rates['J'] = 60;
-		rates['K'] = 80;
+		rates['K'] = 70;
 		rates['L'] = 90;
 		rates['M'] = 15;
 		rates['N'] = 40;
@@ -102,14 +90,14 @@ public class CheckoutSolution {
 		rates['P'] = 50;
 		rates['Q'] = 30;
 		rates['R'] = 50;
-		rates['S'] = 30;
+		rates['S'] = 20;
 		rates['T'] = 20;
 		rates['U'] = 40;
 		rates['V'] = 50;
 		rates['W'] = 20;
-		rates['X'] = 90;
-		rates['Y'] = 10;
-		rates['Z'] = 50;
+		rates['X'] = 17;
+		rates['Y'] = 20;
+		rates['Z'] = 21;
 	}
 	
 	public void applyAnyThreeOffer() {
@@ -311,6 +299,3 @@ public class CheckoutSolution {
 		}
 	}
 }
-
-
-
