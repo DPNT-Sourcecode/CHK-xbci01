@@ -250,5 +250,12 @@ public class CheckoutSolution {
 			this.value = value;
 		}
 	}
+	
+	public static void main(String[] args) {
+		CheckoutSolution sol = new CheckoutSolution();
+		System.out.println(sol.checkout("E"));
+		System.out.println(sol.checkout("B"));
+	}
 }
+
 
