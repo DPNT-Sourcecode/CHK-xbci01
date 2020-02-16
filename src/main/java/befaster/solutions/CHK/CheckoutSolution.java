@@ -28,7 +28,7 @@ public class CheckoutSolution {
 			} else
 				skuCount.put(item, new MetaData(1, 0));
 		}
-
+		this.applyAnyThreeOffer();
 		for (Map.Entry<Character, MetaData> entry : skuCount.entrySet()) {
 			int rate = rates[entry.getKey()];
 			MetaData data = entry.getValue();
@@ -78,14 +78,9 @@ public class CheckoutSolution {
 
 		offerMap.put('Q', Arrays.asList(new Offer[] { new CountOffer(3, 80) }));
 		offerMap.put('R', Arrays.asList(new Offer[] { new FreeOffer(3, 'R', 'Q') }));
-		offerMap.put('S', Arrays.asList(new AnyThree()));
-		offerMap.put('T', Arrays.asList(new AnyThree()));
 		
 		offerMap.put('U', Arrays.asList(new Offer[] { new FreeOffer(3, 'U', 'U') }));
 		offerMap.put('V', Arrays.asList(new Offer[] { new CountOffer(3, 130), new CountOffer(2, 90) }));
-		offerMap.put('X', Arrays.asList(new AnyThree()));
-		offerMap.put('Y', Arrays.asList(new AnyThree()));
-		offerMap.put('Z', Arrays.asList(new AnyThree()));
 	}
 
 	public void generateRates() {
@@ -315,5 +310,16 @@ public class CheckoutSolution {
 			this.value = value;
 		}
 	}
+	
+	public static void main(String args[]) {
+		CheckoutSolution sol = new CheckoutSolution();
+		System.out.println(sol.checkout("AESBETABXAVYVZSTSS"));
+		System.out.println(sol.checkout("A"));
+		System.out.println(sol.checkout("E"));
+		System.out.println(sol.checkout("X"));
+		System.out.println(sol.checkout("XX"));
+		System.out.println(sol.checkout("YXS"));
+	}
 }
+
 
