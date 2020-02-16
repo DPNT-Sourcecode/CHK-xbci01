@@ -10,7 +10,10 @@ public class CheckoutSolution {
 	public int total = 0;
 	public Map<Character, List<Offer>> offerMap = new HashMap<>();	
 	public Map<Character, MetaData> skuCount = new HashMap<>();
-	public Integer checkout(String skus) {		
+	public Integer checkout(String skus) {
+		total = 0;
+		offerMap = new HashMap<>();
+		skuCount = new HashMap<>();
 		generateRates();
 		generateOfferMap();
 		char[] input = skus.toCharArray();
@@ -247,9 +250,5 @@ public class CheckoutSolution {
 			this.value = value;
 		}
 	}
-	
-	public static void main(String[] args) {
-		CheckoutSolution sol = new CheckoutSolution();
-		System.out.println(sol.checkout("PPPPPPPPPP"));
-	}
 }
+
