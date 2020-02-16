@@ -167,13 +167,18 @@ public class CheckoutSolution {
 	}
 	class AnyThree implements Offer{
 		final char[] offerProducts;
+		int rate;
 		
 		public AnyThree() {
 			offerProducts = new char[]{'S','T','X','Y','Z'};
+			rate = 45; 
 		}
 		
 		public char[] getAnyThreeOfferProducts() {
 			return offerProducts;
+		}
+		public int getRate() {
+			return rate;
 		}
 	}
 
@@ -275,6 +280,7 @@ public class CheckoutSolution {
 		}
 	}
 }
+
 
 
 
