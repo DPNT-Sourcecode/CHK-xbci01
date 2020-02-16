@@ -8,8 +8,9 @@ import java.util.Map;
 public class CheckoutSolution {
 	public int[] rates = new int[128];
 	public int total = 0;
-	public Map<Character, List<Offer>> offerMap = new HashMap<>();	
+	public Map<Character, List<Offer>> offerMap = new HashMap<>();
 	public Map<Character, MetaData> skuCount = new HashMap<>();
+
 	public Integer checkout(String skus) {
 		total = 0;
 		offerMap = new HashMap<>();
@@ -27,65 +28,60 @@ public class CheckoutSolution {
 			} else
 				skuCount.put(item, new MetaData(1, 0));
 		}
-		
+
 		for (Map.Entry<Character, MetaData> entry : skuCount.entrySet()) {
 			int rate = rates[entry.getKey()];
-			MetaData data= entry.getValue();
+			MetaData data = entry.getValue();
 			int noOfItems = data.getCount();
-			if(offerMap.containsKey(entry.getKey())) {
+			if (offerMap.containsKey(entry.getKey())) {
 				List<Offer> offers = offerMap.get(entry.getKey());
-				for(Offer offer : offers) {
-					if(offer instanceof CountOffer) {
-						CountOffer countOffer = (CountOffer)offer;
+				for (Offer offer : offers) {
+					if (offer instanceof CountOffer) {
+						CountOffer countOffer = (CountOffer) offer;
 						noOfItems = this.applyCountOffers(countOffer, noOfItems, data);
-					}else if(offer instanceof FreeOffer) {
-						FreeOffer freeOffer = (FreeOffer)offer;
+					} else if (offer instanceof FreeOffer) {
+						FreeOffer freeOffer = (FreeOffer) offer;
 						noOfItems = this.applyFreeOffer(freeOffer, noOfItems, rate, data);
-					}					
-				}				
+					}
+				}
 			}
 			data.setValue(data.getValue() + noOfItems * rate);
 			total += noOfItems * rate;
 		}
-		
-		/*for (Map.Entry<Character, Integer> entry : skuCount.entrySet()) {
-			int rate = rates[entry.getKey()];
-			if (entry.getKey() == 'A') {
-				total += (entry.getValue() / 5) * 200 + ((entry.getValue() % 5) / 3) * 130
-						+ ((entry.getValue() % 5) % 3) * rate;
-			} else if (entry.getKey() == 'B') {
-				int noOfBs = entry.getValue();
-				if (skuCount.containsKey('E'))
-					noOfBs -= skuCount.get('E') / 2;
-				noOfBs = noOfBs > 0 ? noOfBs : 0;
-				total += (noOfBs / 2) * 45 + (noOfBs % 2) * rate;
-			} else if (entry.getKey() == 'F') {
-				total += ((entry.getValue() / 3) * 2 + (entry.getValue() % 3)) * rate;
-			} else {
-				total += entry.getValue() * rate;
-			}
-		}*/
+
+		/*
+		 * for (Map.Entry<Character, Integer> entry : skuCount.entrySet()) { int rate =
+		 * rates[entry.getKey()]; if (entry.getKey() == 'A') { total +=
+		 * (entry.getValue() / 5) * 200 + ((entry.getValue() % 5) / 3) * 130 +
+		 * ((entry.getValue() % 5) % 3) * rate; } else if (entry.getKey() == 'B') { int
+		 * noOfBs = entry.getValue(); if (skuCount.containsKey('E')) noOfBs -=
+		 * skuCount.get('E') / 2; noOfBs = noOfBs > 0 ? noOfBs : 0; total += (noOfBs /
+		 * 2) * 45 + (noOfBs % 2) * rate; } else if (entry.getKey() == 'F') { total +=
+		 * ((entry.getValue() / 3) * 2 + (entry.getValue() % 3)) * rate; } else { total
+		 * += entry.getValue() * rate; } }
+		 */
 		return total;
 	}
 
 	public void generateOfferMap() {
-		offerMap.put('A', Arrays.asList(new Offer[] {new CountOffer(5,200), new CountOffer(3,130)}));
-		offerMap.put('B', Arrays.asList(new Offer[] {new CountOffer(2,45)}));
-		
-		offerMap.put('E', Arrays.asList(new Offer[] {new FreeOffer(2, 'E', 'B')}));
-		offerMap.put('F', Arrays.asList(new Offer[] {new FreeOffer(2, 'F', 'F')}));
-		
-		offerMap.put('H', Arrays.asList(new Offer[] {new CountOffer(10, 80),new CountOffer(5, 45)}));
-		offerMap.put('K', Arrays.asList(new Offer[] {new CountOffer(2, 150)}));
-		
-		offerMap.put('N', Arrays.asList(new Offer[] {new FreeOffer(3, 'N', 'M')}));
-		offerMap.put('P', Arrays.asList(new Offer[] {new CountOffer(5, 200)}));
-		
-		offerMap.put('Q', Arrays.asList(new Offer[] {new CountOffer(3, 80)}));
-		offerMap.put('R', Arrays.asList(new Offer[] {new FreeOffer(3, 'R', 'Q')}));
-		offerMap.put('U', Arrays.asList(new Offer[] {new FreeOffer(3, 'U','U')}));
-		offerMap.put('V', Arrays.asList(new Offer[] {new CountOffer(3, 130), new CountOffer(2, 90)}));
-	}	
+		offerMap.put('A', Arrays.asList(new Offer[] { new CountOffer(5, 200), new CountOffer(3, 130) }));
+		offerMap.put('B', Arrays.asList(new Offer[] { new CountOffer(2, 45) }));
+
+		offerMap.put('E', Arrays.asList(new Offer[] { new FreeOffer(2, 'E', 'B') }));
+		offerMap.put('F', Arrays.asList(new Offer[] { new FreeOffer(2, 'F', 'F') }));
+
+		offerMap.put('H', Arrays.asList(new Offer[] { new CountOffer(10, 80), new CountOffer(5, 45) }));
+		offerMap.put('K', Arrays.asList(new Offer[] { new CountOffer(2, 150) }));
+
+		offerMap.put('N', Arrays.asList(new Offer[] { new FreeOffer(3, 'N', 'M') }));
+		offerMap.put('P', Arrays.asList(new Offer[] { new CountOffer(5, 200) }));
+
+		offerMap.put('Q', Arrays.asList(new Offer[] { new CountOffer(3, 80) }));
+		offerMap.put('R', Arrays.asList(new Offer[] { new FreeOffer(3, 'R', 'Q') }));
+		offerMap.put('U', Arrays.asList(new Offer[] { new FreeOffer(3, 'U', 'U') }));
+		offerMap.put('V', Arrays.asList(new Offer[] { new CountOffer(3, 130), new CountOffer(2, 90) }));
+	}
+
 	public void generateRates() {
 		rates['A'] = 50;
 		rates['B'] = 30;
@@ -129,29 +125,33 @@ public class CheckoutSolution {
 			total += ((noOfItems / (freeOffer.getCount() + 1)) * freeOffer.getCount()
 					+ (noOfItems % (freeOffer.getCount() + 1))) * rate;
 		} else {
-			MetaData computedValue = skuCount.get(freeOffer.getOfferProduct());			
-			int offerProductCount = computedValue.getCount();//bcount
-			int count = noOfItems / freeOffer.getCount(); //Ecount
-			
-			if(offerProductCount>0) {
-				total -= computedValue.getValue();
-				total += noOfItems * rate;
-				offerProductCount = offerProductCount>count?offerProductCount-count:0;
-				if(offerMap.containsKey(freeOffer.getOfferProduct())) {
-					List<Offer> offers = offerMap.get(freeOffer.getOfferProduct());
-					for(Offer offer : offers) {
-						if(offer instanceof CountOffer) {
-							CountOffer countOffer = (CountOffer)offer;
-							offerProductCount = this.applyCountOffers(countOffer, offerProductCount, data);
-						}else if(offer instanceof FreeOffer) {
-							FreeOffer freeOfferNew = (FreeOffer)offer;
-							offerProductCount = this.applyFreeOffer(freeOfferNew, offerProductCount, rates[freeOffer.getOfferProduct()], data);
-						}					
-					}				
-				} 
-				total += offerProductCount * rates[freeOffer.getOfferProduct()];
-				skuCount.put(freeOffer.getOfferProduct(), new MetaData(offerProductCount, 0));				
-			}
+			MetaData computedValue = skuCount.get(freeOffer.getOfferProduct());
+			if (computedValue != null) {
+				int offerProductCount = computedValue.getCount();// bcount
+				int count = noOfItems / freeOffer.getCount(); // Ecount
+
+				if (offerProductCount > 0) {
+					total -= computedValue.getValue();
+					total += noOfItems * rate;
+					offerProductCount = offerProductCount > count ? offerProductCount - count : 0;
+					if (offerMap.containsKey(freeOffer.getOfferProduct())) {
+						List<Offer> offers = offerMap.get(freeOffer.getOfferProduct());
+						for (Offer offer : offers) {
+							if (offer instanceof CountOffer) {
+								CountOffer countOffer = (CountOffer) offer;
+								offerProductCount = this.applyCountOffers(countOffer, offerProductCount, data);
+							} else if (offer instanceof FreeOffer) {
+								FreeOffer freeOfferNew = (FreeOffer) offer;
+								offerProductCount = this.applyFreeOffer(freeOfferNew, offerProductCount,
+										rates[freeOffer.getOfferProduct()], data);
+							}
+						}
+					}
+					total += offerProductCount * rates[freeOffer.getOfferProduct()];
+					skuCount.put(freeOffer.getOfferProduct(), new MetaData(offerProductCount, 0));
+				}
+			}else
+				return noOfItems;
 		}
 		return 0;
 	}
@@ -228,34 +228,36 @@ public class CheckoutSolution {
 			this.offerProduct = offerProduct;
 		}
 	}
-	
-	class MetaData{
-		public MetaData() {};
+
+	class MetaData {
+		public MetaData() {
+		};
+
 		public MetaData(int count, int value) {
 			this.value = value;
 			this.count = count;
 		}
+
 		private int count;
 		private int value;
+
 		public int getCount() {
 			return count;
 		}
+
 		public void setCount(int count) {
 			this.count = count;
 		}
+
 		public int getValue() {
 			return value;
 		}
+
 		public void setValue(int value) {
 			this.value = value;
 		}
 	}
-	
-	public static void main(String[] args) {
-		CheckoutSolution sol = new CheckoutSolution();
-		System.out.println(sol.checkout("E"));
-		System.out.println(sol.checkout("B"));
-	}
 }
+
 
 
