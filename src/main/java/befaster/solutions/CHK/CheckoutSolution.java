@@ -280,8 +280,3 @@ public class CheckoutSolution {
 		}
 	}
 }
-
-
-
-
-
